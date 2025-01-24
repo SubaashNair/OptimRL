@@ -1,4 +1,4 @@
-name: Publish Python distribution to PyPI
+name: Publish Python Distribution to PyPI
 
 on:
   push:
@@ -7,79 +7,62 @@ on:
 
 jobs:
   build:
-    name: Build distribution 📦
+    name: Build Python Distribution 📦
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.x"
-    - name: Install build tools
+        python-version: "3.x"  # Use the latest stable Python 3 version
+
+    - name: Upgrade pip and install build tools
       run: |
         python -m pip install --upgrade pip
-        pip install build
+        pip install build wheel setuptools
+
     - name: Build package
       run: python -m build
-    - name: Store distribution packages
+
+    - name: Upload built distributions
       uses: actions/upload-artifact@v4
       with:
         name: python-package-distributions
         path: dist/
 
   publish-to-pypi:
-    name: Publish to PyPI
-    needs:
-    - build
+    name: Publish to PyPI 🚀
+    needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/optimrl
-    permissions:
-      id-token: write
-    
     steps:
-    - name: Download built packages
+    - name: Download built distributions
       uses: actions/download-artifact@v4
       with:
         name: python-package-distributions
         path: dist/
+
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
 
   github-release:
-    name: Create GitHub Release
-    needs:
-    - publish-to-pypi
+    name: Create GitHub Release 🏷️
+    needs: publish-to-pypi
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
-    
     steps:
-    - name: Download packages
+    - name: Download built distributions
       uses: actions/download-artifact@v4
       with:
         name: python-package-distributions
         path: dist/
-    - name: Sign with Sigstore
-      uses: sigstore/gh-action-sigstore-python@v3.0.0
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
       with:
-        inputs: >-
-          ./dist/*.tar.gz
-          ./dist/*.whl
-    - name: Create Release
+        files: dist/*
       env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: >-
-        gh release create
-        "$GITHUB_REF_NAME"
-        --repo "$GITHUB_REPOSITORY"
-        --notes ""
-    - name: Upload assets
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: >-
-        gh release upload
-        "$GITHUB_REF_NAME" dist/**
-        --repo "$GITHUB_REPOSITORY"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
