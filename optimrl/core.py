@@ -73,18 +73,18 @@ class GRPO:
     def _find_library_path(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         lib_name = {
-            'Windows': 'libgrpo.dll',
-            'Darwin': 'libgrpo.dylib',
-            'Linux': 'libgrpo.so'
+            "Windows": "libgrpo.dll",
+            "Darwin": "libgrpo.dylib",
+            "Linux": "libgrpo.so",
         }[platform.system()]
-        
+
         search_paths = [
             os.path.join(current_dir, "c_src"),
             current_dir,
             os.path.join(os.path.dirname(current_dir), "c_src"),
-            os.path.join(sys.prefix, "lib")
+            os.path.join(sys.prefix, "lib"),
         ]
-        
+
         for path in search_paths:
             full_path = os.path.normpath(os.path.join(path, lib_name))
             if os.path.exists(full_path):
