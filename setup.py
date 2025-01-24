@@ -17,6 +17,12 @@ class CustomBuildExt(build_ext):
 
     def build_extensions(self):
         # Set platform-specific compiler flags
+        for ext in self.extensions:
+            print(f"Building extension: {ext.name}")
+            print(f"Include dirs: {ext.include_dirs}")
+            print(f"Library dirs: {ext.library_dirs}")
+        super().build_extensions()
+
         compiler_type = self.compiler.compiler_type
         for ext in self.extensions:
             if compiler_type == 'unix':
