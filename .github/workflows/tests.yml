@@ -33,7 +33,8 @@ jobs:
 
     - name: Skip unsupported configurations
       if: matrix.os == 'windows-latest' && matrix.python-version == '3.9'
-      run: echo "Skipping unsupported configuration: ${{ matrix.os }} with Python ${{ matrix.python-version }}"
+      run: |
+        echo "Skipping unsupported configuration: ${{ matrix.os }} with Python ${{ matrix.python-version }}"
 
     - name: Install dependencies
       if: matrix.os != 'windows-latest' || matrix.python-version != '3.9'
