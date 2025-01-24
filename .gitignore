@@ -1,0 +1,46 @@
+# Python virtual environments
+venv/
+env/
+.env/
+.venv/
+ENV/
+
+# PyTorch model files
+*.pt
+*.pth
+*.ckpt
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Local development settings
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+.coverage
+htmlcov/
+
+# System files
+.DS_Store
+Thumbs.db
