@@ -1,3 +1,20 @@
 [build-system]
 requires = ["setuptools>=42", "wheel", "build","versioneer"]
 build-backend = "setuptools.build_meta"
+
+[tool.black]
+exclude = '''
+/(
+    .git
+  | __pycache__
+  | site-packages
+  | .*\.egg-info
+)/
+'''
+
+[tool.isort]
+profile = "black"
+skip = [
+    "site-packages",
+    "__pycache__",
+]

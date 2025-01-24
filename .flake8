@@ -1,0 +1,3 @@
+[flake8]
+exclude = site-packages, __pycache__, .git, .venv, .eggs, *.egg-info
+max-line-length = 88

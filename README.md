@@ -6,17 +6,17 @@ OptimRL is a **high-performance reinforcement learning library** that introduces
 ## 🏅 Badges
 
 ![PyPI Version](https://img.shields.io/pypi/v/optimrl)
-![PyPI Downloads](https://img.shields.io/pypi/dm/optimrl)
-![Python Version](https://img.shields.io/pypi/pyversions/optimrl)
+<!-- ![PyPI Downloads](https://img.shields.io/pypi/dm/optimrl) -->
+<!-- ![Python Version](https://img.shields.io/pypi/pyversions/optimrl) -->
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
 ![C](https://img.shields.io/badge/C-99-00599C?logo=c&logoColor=white)
 ![NumPy](https://img.shields.io/badge/Library-NumPy-013243?logo=numpy&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/Framework-PyTorch-EE4C2C?logo=pytorch&logoColor=white)
 ![Setuptools](https://img.shields.io/badge/Tool-Setuptools-3776AB?logo=python&logoColor=white)
 ![Build Status](https://github.com/subaashnair/optimrl/actions/workflows/tests.yml/badge.svg)
-![CI](https://github.com/subaashnair/optimrl/workflows/CI/badge.svg)
-![Coverage](https://img.shields.io/codecov/c/github/subaashnair/optimrl)
-![License](https://img.shields.io/github/license/subaashnair/optimrl)
+<!-- ![CI](https://github.com/subaashnair/optimrl/workflows/CI/badge.svg) -->
+<!-- ![Coverage](https://img.shields.io/codecov/c/github/subaashnair/optimrl) -->
+<!-- ![License](https://img.shields.io/github/license/subaashnair/optimrl) -->
 
 ## 🌟 Features
 
