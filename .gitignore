@@ -1,52 +1,48 @@
-# Python virtual environments
+# Virtual Environment
 venv/
 env/
 .env/
 .venv/
 ENV/
-optimrl/
 **/lib/
 **/bin/
 **/include/
 **/share/
 pyvenv.cfg
 
-# PyTorch model files
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+
+# PyTorch
 *.pt
 *.pth
 *.ckpt
 
-# Python cache 
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
-*.pyc
-*.pyo
-*.so
-
-# IDE settings
-.vscode/
+# IDEs
 .idea/
+.vscode/
 *.swp
 *.swo
+*~
 
-# Local development settings
-.env
-.env.local
-
-# Logs
-*.log
-logs/
-
-# Test coverage
+# Testing
+.pytest_cache/
 .coverage
 htmlcov/
 
-# System files
+# OS
 .DS_Store
 Thumbs.db
