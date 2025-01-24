@@ -1,9 +1,11 @@
 from setuptools import setup, find_packages, Extension
 from setuptools.command.build_ext import build_ext
+from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
 import os
 import platform
 import shutil
 import versioneer
+
 
 class CustomBuildExt(build_ext):
     """Custom build command to handle library file copying and platform-specific compilation."""
@@ -60,6 +62,20 @@ class CustomBuildExt(build_ext):
             print(f"Copied {built_lib} to {dest_path}")
 
 
+class BDistWheel(_bdist_wheel):
+    """Custom bdist_wheel to ensure platform-specific tagging."""
+
+    def finalize_options(self):
+        super().finalize_options()
+        self.root_is_pure = False  # Indicate this is not a pure Python package
+        if platform.system() == 'Linux':
+            self.plat_name = 'manylinux2014_x86_64'  # Use a compliant platform tag
+        elif platform.system() == 'Darwin':
+            self.plat_name = 'macosx_11_0_arm64'  # Example for macOS
+        elif platform.system() == 'Windows':
+            self.plat_name = 'win_amd64'  # Example for Windows
+
+
 # Define the extension module
 grpo_module = Extension(
     'optimrl.c_src.libgrpo',
@@ -78,7 +94,8 @@ setup(
     version=versioneer.get_version(),
     cmdclass={
         **versioneer.get_cmdclass(),
-        'build_ext': CustomBuildExt
+        'build_ext': CustomBuildExt,
+        'bdist_wheel': BDistWheel
     },
     author="Subashanan Nair",
     author_email="subaashnair12@gmail.com",
@@ -99,6 +116,6 @@ setup(
     python_requires=">=3.8",
     include_package_data=True,
     package_data={
-        'optimrl': ['c_src/.dylib', 'c_src/.so', 'c_src/.dll','c_src/*.h', 'c_src/*.c']
+        'optimrl': ['c_src/*.h', 'c_src/*.c']
     },
 )
