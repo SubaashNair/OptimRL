@@ -2,6 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
+
+// Example implementation of the PyInit_libgrpo function
+PyMODINIT_FUNC PyInit_libgrpo(void) {
+    static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "libgrpo",       // Module name
+        "GRPO C extension",  // Module docstring
+        -1,              // Size of per-interpreter state of the module
+        NULL,            // Module methods
+    };
+
+    return PyModule_Create(&moduledef);
+}
 
 // Helper function to compute robust statistics
 void compute_reward_stats(double* rewards, int group_size, double* out_mean, double* out_std) {

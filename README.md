@@ -6,8 +6,6 @@ OptimRL is a **high-performance reinforcement learning library** that introduces
 ## 🏅 Badges
 
 ![PyPI Version](https://img.shields.io/pypi/v/optimrl)
-<!-- ![PyPI Downloads](https://img.shields.io/pypi/dm/optimrl) -->
-<!-- ![Python Version](https://img.shields.io/pypi/pyversions/optimrl) -->
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
 ![C](https://img.shields.io/badge/C-99-00599C?logo=c&logoColor=white)
 ![NumPy](https://img.shields.io/badge/Library-NumPy-013243?logo=numpy&logoColor=white)

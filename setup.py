@@ -5,6 +5,11 @@ import os
 import platform
 import shutil
 import versioneer
+import sysconfig
+
+# Get the Python include path dynamically
+python_include_path = sysconfig.get_path('include')
+python_lib_path = sysconfig.get_config_var('LIBDIR')
 
 
 class CustomBuildExt(build_ext):
@@ -77,12 +82,14 @@ class BDistWheel(_bdist_wheel):
 
 
 # Define the extension module
+
 grpo_module = Extension(
     'optimrl.c_src.libgrpo',
     sources=['optimrl/c_src/grpo.c'],
-    include_dirs=['optimrl/c_src'],
+    include_dirs=['optimrl/c_src',python_include_path],
     libraries=['m'] if platform.system() != 'Windows' else [],
-    extra_compile_args=['-O3', '-fPIC'] if platform.system() != 'Windows' else ['/O2']
+    extra_compile_args=['-O3', '-fPIC'] if platform.system() != 'Windows' else ['/O2'],
+    extra_link_args=[] if platform.system() != 'Windows' else ['/EXPORT:PyInit_libgrpo']
 )
 
 # Read the README file
@@ -110,7 +117,7 @@ setup(
         "torch>=1.8.0"
     ],
     extras_require={
-        'test': ['pytest>=6.0'],
+        'test': ['pytest>=6.0', 'flake8', 'isort', 'black'],
         'dev': ['pytest>=6.0', 'black', 'isort', 'flake8']
     },
     python_requires=">=3.8",
