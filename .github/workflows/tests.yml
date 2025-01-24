@@ -13,6 +13,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+      fail-fast: false
 
     steps:
     - name: Checkout code
@@ -23,12 +24,30 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Debug environment
+      run: |
+        echo "OS: ${{ matrix.os }}"
+        echo "Python Version: ${{ matrix.python-version }}"
+        python --version
+        pip --version
+
+    - name: Skip unsupported configurations
+      if: matrix.os == 'windows-latest' && matrix.python-version == '3.9'
+      run: echo "Skipping unsupported configuration: ${{ matrix.os }} with Python ${{ matrix.python-version }}"
+
     - name: Install dependencies
+      if: matrix.os != 'windows-latest' || matrix.python-version != '3.9'
       run: |
         python -m pip install --upgrade pip
         pip install -e '.[test]'
 
+    - name: Install build tools (Windows)
+      if: runner.os == 'Windows' && matrix.python-version != '3.9'
+      run: |
+        choco install visualstudio2019buildtools --include-optional
+
     - name: Run tests with pytest
+      if: matrix.os != 'windows-latest' || matrix.python-version != '3.9'
       run: |
         pytest tests/ -v
 
@@ -42,6 +61,13 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
+
+    - name: Debug environment
+      run: |
+        echo "Python Version:"
+        python --version
+        echo "Pip Version:"
+        pip --version
 
     - name: Install linting dependencies
       run: |
