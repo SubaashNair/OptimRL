@@ -7,7 +7,7 @@ import shutil
 import versioneer
 import sysconfig
 
-# Get the Python include path dynamically
+# Get the Python include and library paths dynamically
 python_include_path = sysconfig.get_path('include')
 python_lib_path = sysconfig.get_config_var('LIBDIR')
 
@@ -86,10 +86,16 @@ class BDistWheel(_bdist_wheel):
 grpo_module = Extension(
     'optimrl.c_src.libgrpo',
     sources=['optimrl/c_src/grpo.c'],
-    include_dirs=['optimrl/c_src',python_include_path],
+    include_dirs=[
+        'optimrl/c_src',
+        python_include_path
+    ],
+    library_dirs=[
+        python_lib_path  # Include the Python library path dynamically
+    ],
     libraries=['m'] if platform.system() != 'Windows' else [],
     extra_compile_args=['-O3', '-fPIC'] if platform.system() != 'Windows' else ['/O2'],
-    extra_link_args=[] if platform.system() != 'Windows' else ['/EXPORT:PyInit_libgrpo']
+    extra_link_args=['-L' + python_lib_path] if platform.system() != 'Windows' else ['/EXPORT:PyInit_libgrpo']
 )
 
 # Read the README file
