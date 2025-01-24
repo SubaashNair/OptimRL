@@ -1,3 +1,8 @@
+; [flake8]
+; exclude = site-packages, __pycache__, .git, .venv, .eggs, *.egg-info
+; max-line-length = 88
 [flake8]
-exclude = site-packages, __pycache__, .git, .venv, .eggs, *.egg-info
-max-line-length = 88
+max-line-length = 100
+exclude = .git,__pycache__,build,dist,*.egg-info
+ignore = E203,W503
+per-file-ignores = __init__.py:F401

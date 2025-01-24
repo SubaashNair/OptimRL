@@ -37,39 +37,58 @@ class GRPO:
         # Set up C function interfaces
         self._setup_functions()
 
+    # def _find_library_path(self):
+    #     """Find the path to the compiled library file."""
+    #     # Get the directory of the current file
+    #     current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    #     # Determine library name based on platform
+    #     if platform.system() == "Darwin":
+    #         lib_name = "libgrpo.dylib"
+    #     elif platform.system() == "Linux":
+    #         lib_name = "libgrpo.so"
+    #     elif platform.system() == "Windows":
+    #         lib_name = "libgrpo.dll"
+    #     else:
+    #         raise OSError(f"Unsupported operating system: {platform.system()}")
+
+    #     # Possible locations for the library
+    #     possible_paths = [
+    #         os.path.join(current_dir, "c_src", lib_name),
+    #         os.path.join(current_dir, lib_name),
+    #         os.path.join(os.path.dirname(current_dir), "c_src", lib_name),
+    #         os.path.join(sys.prefix, "lib", lib_name),
+    #     ]
+
+    #     # Find the first existing library file
+    #     for path in possible_paths:
+    #         if os.path.exists(path):
+    #             return path
+
+    #     paths_str = "\n".join(possible_paths)
+    #     raise FileNotFoundError(
+    #         f"Could not find {lib_name}. Searched in:\n{paths_str}\n"
+    #         "Try reinstalling the package or building the C extension."
+    #     )
     def _find_library_path(self):
-        """Find the path to the compiled library file."""
-        # Get the directory of the current file
         current_dir = os.path.dirname(os.path.abspath(__file__))
-
-        # Determine library name based on platform
-        if platform.system() == "Darwin":
-            lib_name = "libgrpo.dylib"
-        elif platform.system() == "Linux":
-            lib_name = "libgrpo.so"
-        elif platform.system() == "Windows":
-            lib_name = "libgrpo.dll"
-        else:
-            raise OSError(f"Unsupported operating system: {platform.system()}")
-
-        # Possible locations for the library
-        possible_paths = [
-            os.path.join(current_dir, "c_src", lib_name),
-            os.path.join(current_dir, lib_name),
-            os.path.join(os.path.dirname(current_dir), "c_src", lib_name),
-            os.path.join(sys.prefix, "lib", lib_name),
+        lib_name = {
+            'Windows': 'libgrpo.dll',
+            'Darwin': 'libgrpo.dylib',
+            'Linux': 'libgrpo.so'
+        }[platform.system()]
+        
+        search_paths = [
+            os.path.join(current_dir, "c_src"),
+            current_dir,
+            os.path.join(os.path.dirname(current_dir), "c_src"),
+            os.path.join(sys.prefix, "lib")
         ]
-
-        # Find the first existing library file
-        for path in possible_paths:
-            if os.path.exists(path):
-                return path
-
-        paths_str = "\n".join(possible_paths)
-        raise FileNotFoundError(
-            f"Could not find {lib_name}. Searched in:\n{paths_str}\n"
-            "Try reinstalling the package or building the C extension."
-        )
+        
+        for path in search_paths:
+            full_path = os.path.normpath(os.path.join(path, lib_name))
+            if os.path.exists(full_path):
+                return full_path
 
     def _load_library(self):
         """Load the compiled C library."""

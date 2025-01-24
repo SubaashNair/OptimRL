@@ -18,3 +18,8 @@ skip = [
     "site-packages",
     "__pycache__",
 ]
+
+
+[tool.mypy]
+ignore_missing_imports = true
+strict_optional = true

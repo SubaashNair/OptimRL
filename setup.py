@@ -22,7 +22,7 @@ class CustomBuildExt(build_ext):
             print(f"Include dirs: {ext.include_dirs}")
             print(f"Library dirs: {ext.library_dirs}")
         super().build_extensions()
-        
+
         compiler_type = self.compiler.compiler_type
         for ext in self.extensions:
             if compiler_type == 'unix':
@@ -89,17 +89,24 @@ class BDistWheel(_bdist_wheel):
 
 # Define the extension module
 
+# grpo_module = Extension(
+#     'optimrl.c_src.libgrpo',
+#     sources=['optimrl/c_src/grpo.c'],
+#     include_dirs=[
+#         'optimrl/c_src',
+#         python_include_path
+#     ],
+#     library_dirs=[
+#         python_lib_path  # Include the Python library path dynamically
+#     ],
+#     libraries=['m'] if platform.system() != 'Windows' else [],
+#     extra_compile_args=['-O3', '-fPIC'] if platform.system() != 'Windows' else ['/O2'],
+#     extra_link_args=['-L' + python_lib_path] if platform.system() != 'Windows' else ['/EXPORT:PyInit_libgrpo']
+# )
 grpo_module = Extension(
     'optimrl.c_src.libgrpo',
     sources=['optimrl/c_src/grpo.c'],
-    include_dirs=[
-        'optimrl/c_src',
-        python_include_path
-    ],
-    library_dirs=[
-        python_lib_path  # Include the Python library path dynamically
-    ],
-    libraries=['m'] if platform.system() != 'Windows' else [],
+    include_dirs=[...],
     extra_compile_args=['-O3', '-fPIC'] if platform.system() != 'Windows' else ['/O2'],
     extra_link_args=['-L' + python_lib_path] if platform.system() != 'Windows' else ['/EXPORT:PyInit_libgrpo']
 )
