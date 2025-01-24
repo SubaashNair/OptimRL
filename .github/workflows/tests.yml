@@ -24,31 +24,30 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Install build tools (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        choco install visualstudio2019buildtools --include-optional
+        choco install windows-sdk-10.0 --include-optional
+
+    - name: Set environment variables (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        setx PATH "%PATH%;C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
+
     - name: Debug environment
       run: |
         echo "OS: ${{ matrix.os }}"
         echo "Python Version: ${{ matrix.python-version }}"
         python --version
-        pip --version
-
-    - name: Skip unsupported configurations
-      if: matrix.os == 'windows-latest' && matrix.python-version == '3.9'
-      run: |
-        echo "Skipping unsupported configuration: ${{ matrix.os }} with Python ${{ matrix.python-version }}"
+        pip list
 
     - name: Install dependencies
-      if: matrix.os != 'windows-latest' || matrix.python-version != '3.9'
       run: |
         python -m pip install --upgrade pip
         pip install -e '.[test]'
 
-    - name: Install build tools (Windows)
-      if: runner.os == 'Windows' && matrix.python-version != '3.9'
-      run: |
-        choco install visualstudio2019buildtools --include-optional
-
     - name: Run tests with pytest
-      if: matrix.os != 'windows-latest' || matrix.python-version != '3.9'
       run: |
         pytest tests/ -v
 
@@ -63,19 +62,12 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Debug environment
-      run: |
-        echo "Python Version:"
-        python --version
-        echo "Pip Version:"
-        pip --version
-
     - name: Install linting dependencies
       run: |
         python -m pip install --upgrade pip
         pip install black isort flake8
 
-    - name: Auto-fix formatting issues
+    - name: Auto-correct formatting issues
       run: |
         black optimrl tests
         isort optimrl tests
