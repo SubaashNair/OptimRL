@@ -9,6 +9,7 @@ ENV/
 **/include/
 **/share/
 pyvenv.cfg
+*.code-workspace
 
 # Python
 __pycache__/

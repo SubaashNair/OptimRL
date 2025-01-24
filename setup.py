@@ -7,11 +7,10 @@ import versioneer
 
 class CustomBuildExt(build_ext):
     """Custom build command to handle library file copying and platform-specific compilation."""
-    
+
     def build_extensions(self):
         # Set platform-specific compiler flags
         compiler_type = self.compiler.compiler_type
-        
         for ext in self.extensions:
             if compiler_type == 'unix':
                 # macOS and Linux specific flags
@@ -30,23 +29,23 @@ class CustomBuildExt(build_ext):
 
         # Build the extensions
         super().build_extensions()
-        
+
         # After building, copy the library to the package directory
         self.copy_extensions_to_package()
-    
+
     def copy_extensions_to_package(self):
         """Copy the built extension to the package directory."""
         for ext in self.extensions:
             # Get the full path of the built library
             built_lib = self.get_ext_fullpath(ext.name)
-            
+
             # Determine the destination directory within the package
             dest_dir = os.path.join('optimrl', 'c_src')
             os.makedirs(dest_dir, exist_ok=True)
-            
+
             # Get the filename only
             filename = os.path.basename(built_lib)
-            
+
             # Create platform-specific library name
             if platform.system() == 'Darwin':
                 lib_name = 'libgrpo.dylib'
@@ -54,11 +53,12 @@ class CustomBuildExt(build_ext):
                 lib_name = 'libgrpo.so'
             else:
                 lib_name = 'libgrpo.dll'
-            
+
             # Copy the file to the package directory with the correct name
             dest_path = os.path.join(dest_dir, lib_name)
             shutil.copy2(built_lib, dest_path)
             print(f"Copied {built_lib} to {dest_path}")
+
 
 # Define the extension module
 grpo_module = Extension(
@@ -76,7 +76,10 @@ with open('README.md', 'r', encoding='utf-8') as f:
 setup(
     name="optimrl",
     version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    cmdclass={
+        **versioneer.get_cmdclass(),
+        'build_ext': CustomBuildExt
+    },
     author="Subashanan Nair",
     author_email="subaashnair12@gmail.com",
     description="Group Relative Policy Optimization for Efficient RL Training",
@@ -94,9 +97,8 @@ setup(
         'dev': ['pytest>=6.0', 'black', 'isort', 'flake8']
     },
     python_requires=">=3.8",
-    cmdclass={'build_ext': CustomBuildExt},
     include_package_data=True,
     package_data={
-        'optimrl': ['c_src/*.dylib', 'c_src/*.so', 'c_src/*.dll']
+        'optimrl': ['c_src/.dylib', 'c_src/.so', 'c_src/.dll']
     },
 )
