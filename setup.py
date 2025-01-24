@@ -22,7 +22,7 @@ class CustomBuildExt(build_ext):
             print(f"Include dirs: {ext.include_dirs}")
             print(f"Library dirs: {ext.library_dirs}")
         super().build_extensions()
-
+        
         compiler_type = self.compiler.compiler_type
         for ext in self.extensions:
             if compiler_type == 'unix':
