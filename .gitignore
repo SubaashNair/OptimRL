@@ -4,13 +4,19 @@ env/
 .env/
 .venv/
 ENV/
+optimrl/
+**/lib/
+**/bin/
+**/include/
+**/share/
+pyvenv.cfg
 
 # PyTorch model files
 *.pt
 *.pth
 *.ckpt
 
-# Python cache
+# Python cache 
 __pycache__/
 *.py[cod]
 *$py.class
@@ -19,15 +25,15 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+*.pyc
+*.pyo
+*.so
 
 # IDE settings
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Jupyter Notebook
-.ipynb_checkpoints
 
 # Local development settings
 .env
