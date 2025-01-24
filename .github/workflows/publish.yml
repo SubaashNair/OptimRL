@@ -34,6 +34,9 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
+    - name: Build wheel
+      run: |
+          python -m build --wheel --config-setting=--plat-name=manylinux2014_x86_64
 
   publish-to-pypi:
     name: Publish to PyPI 🚀
