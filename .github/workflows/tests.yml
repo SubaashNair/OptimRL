@@ -63,24 +63,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install black==23.12.1 isort==5.13.2 flake8==7.0.0
 
-    - name: Create linting configs
-      run: |
-        echo "[flake8]
-        max-line-length = 100
-        exclude = .git,__pycache__,build,dist,*.egg-info
-        ignore = E203,W503
-        per-file-ignores = __init__.py:F401" > .flake8
-        
-        echo "[tool.isort]
-        profile = \"black\"
-        line_length = 100
-        skip = [\"site-packages\", \"__pycache__\"]" >> pyproject.toml
-
-    - name: Format code
-      run: |
-        black optimrl tests
-        isort optimrl tests
-
     - name: Check code style
       run: |
         black --check optimrl tests
