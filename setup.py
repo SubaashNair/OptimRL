@@ -86,7 +86,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/SubaashNair/OptimRL",
-    packages=find_packages(),
+    packages=find_packages(include=["optimrl", "optimrl.*"]),
     ext_modules=[grpo_module],
     install_requires=[
         "numpy>=1.20.0",
@@ -99,6 +99,6 @@ setup(
     python_requires=">=3.8",
     include_package_data=True,
     package_data={
-        'optimrl': ['c_src/.dylib', 'c_src/.so', 'c_src/.dll']
+        'optimrl': ['c_src/.dylib', 'c_src/.so', 'c_src/.dll','c_src/*.h', 'c_src/*.c']
     },
 )

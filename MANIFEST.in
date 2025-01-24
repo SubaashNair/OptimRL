@@ -1,0 +1,6 @@
+include optimrl/c_src/grpo.h
+include versioneer.py
+include optimrl/_version.py
+include pyproject.toml
+include optimrl/c_src/*.h
+include optimrl/c_src/*.c
