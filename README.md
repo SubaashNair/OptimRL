@@ -1,8 +1,22 @@
 # 🚀 OptimRL: Group Relative Policy Optimization
 
+
 OptimRL is a **high-performance reinforcement learning library** that introduces a groundbreaking algorithm, **Group Relative Policy Optimization (GRPO)**. Designed to streamline the training of RL agents, GRPO eliminates the need for a critic network while ensuring robust performance with **group-based advantage estimation** and **KL regularization**. Whether you're building an AI to play games, optimize logistics, or manage resources, OptimRL provides **state-of-the-art efficiency and stability**.
 
----
+## 🏅 Badges
+
+![PyPI Version](https://img.shields.io/pypi/v/optimrl)
+![PyPI Downloads](https://img.shields.io/pypi/dm/optimrl)
+![Python Version](https://img.shields.io/pypi/pyversions/optimrl)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
+![C](https://img.shields.io/badge/C-99-00599C?logo=c&logoColor=white)
+![NumPy](https://img.shields.io/badge/Library-NumPy-013243?logo=numpy&logoColor=white)
+![PyTorch](https://img.shields.io/badge/Framework-PyTorch-EE4C2C?logo=pytorch&logoColor=white)
+![Setuptools](https://img.shields.io/badge/Tool-Setuptools-3776AB?logo=python&logoColor=white)
+![Build Status](https://github.com/subaashnair/optimrl/actions/workflows/tests.yml/badge.svg)
+![CI](https://github.com/subaashnair/optimrl/workflows/CI/badge.svg)
+![Coverage](https://img.shields.io/codecov/c/github/subaashnair/optimrl)
+![License](https://img.shields.io/github/license/subaashnair/optimrl)
 
 ## 🌟 Features
 
@@ -172,17 +186,10 @@ If you use OptimRL in your research, please cite:
   title={OptimRL: Group Relative Policy Optimization},
   author={Your Name},
   year={2024},
-  url={https://github.com/yourusername/optimrl}
+  url={https://github.com/subaashnair/optimrl}
 }
 ```
 
 ---
 
-## 🏅 Badges
 
-![PyPI Version](https://img.shields.io/pypi/v/optimrl)
-![PyPI Downloads](https://img.shields.io/pypi/dm/optimrl)
-![Python Version](https://img.shields.io/pypi/pyversions/optimrl)
-![Build Status](https://github.com/yourusername/optimrl/actions/workflows/tests.yml/badge.svg)
-![Coverage](https://img.shields.io/codecov/c/github/yourusername/optimrl)
-![License](https://img.shields.io/github/license/yourusername/optimrl)

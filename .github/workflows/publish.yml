@@ -58,6 +58,8 @@ jobs:
     name: Create GitHub Release 🏷️
     needs: publish-to-pypi
     runs-on: ubuntu-latest
+    # permissions:
+    #   contents: write
     steps:
     - name: Download built distributions
       uses: actions/download-artifact@v4
