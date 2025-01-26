@@ -6,16 +6,35 @@
 #include <Python.h>
 
 // Example implementation of the PyInit_libgrpo function
-PyMODINIT_FUNC PyInit_libgrpo(void) {
-    static struct PyModuleDef moduledef = {
-        PyModuleDef_HEAD_INIT,
-        "libgrpo",       // Module name
-        "GRPO C extension",  // Module docstring
-        -1,              // Size of per-interpreter state of the module
-        NULL,            // Module methods
-    };
+// PyMODINIT_FUNC PyInit_libgrpo(void) {
+//     static struct PyModuleDef moduledef = {
+//         PyModuleDef_HEAD_INIT,
+//         "libgrpo",       // Module name
+//         "GRPO C extension",  // Module docstring
+//         -1,              // Size of per-interpreter state of the module
+//         NULL,            // Module methods
+//     };
 
-    return PyModule_Create(&moduledef);
+//     return PyModule_Create(&moduledef);
+// }
+// Extension initialization function must match the module name: PyInit_libgrpo
+PyMODINIT_FUNC PyInit_libgrpo(void) {
+    static PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "libgrpo",     // name of this module
+        NULL,          // docstring
+        -1,            // size of per-interpreter state of the module
+        NULL,          // methods
+        NULL,          // slots
+        NULL,          // traverse
+        NULL,          // clear
+        NULL           // free
+    };
+    PyObject *m = PyModule_Create(&moduledef);
+    if (m == NULL)
+        return NULL;
+
+    return m;
 }
 
 // Helper function to compute robust statistics

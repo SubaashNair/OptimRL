@@ -36,11 +36,12 @@ jobs:
       
     - name: Build Windows Extension
       if: runner.os == 'Windows'
-      shell: cmd
       run: |
+        # Optional: ensure the c_src directory exists
         if not exist "optimrl\c_src" mkdir "optimrl\c_src"
+    
+        # Build the extension in-place
         python setup.py build_ext --inplace
-        for /r "build" %%i in (libgrpo.dll) do copy "%%i" "optimrl\c_src\"
 
     - name: Install package
       run: |

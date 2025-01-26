@@ -48,27 +48,41 @@ class CustomBuildExt(build_ext):
 
     def copy_extensions_to_package(self):
         """Copy the built extension to the package directory."""
+        # for ext in self.extensions:
+        #     # Get the full path of the built library
+        #     built_lib = self.get_ext_fullpath(ext.name)
+
+        #     # Determine the destination directory within the package
+        #     dest_dir = os.path.join('optimrl', 'c_src')
+        #     os.makedirs(dest_dir, exist_ok=True)
+
+        #     # Get the filename only
+        #     filename = os.path.basename(built_lib)
+
+        #     # Create platform-specific library name
+        #     if platform.system() == 'Darwin':
+        #         lib_name = 'libgrpo.dylib'
+        #     elif platform.system() == 'Linux':
+        #         lib_name = 'libgrpo.so'
+        #     else:
+        #         lib_name = 'libgrpo.dll'
+
+        #     # Copy the file to the package directory with the correct name
+        #     dest_path = os.path.join(dest_dir, lib_name)
+        #     shutil.copy2(built_lib, dest_path)
+        #     print(f"Copied {built_lib} to {dest_path}")
         for ext in self.extensions:
-            # Get the full path of the built library
+        # Get the full path of the built library
             built_lib = self.get_ext_fullpath(ext.name)
 
             # Determine the destination directory within the package
             dest_dir = os.path.join('optimrl', 'c_src')
             os.makedirs(dest_dir, exist_ok=True)
 
-            # Get the filename only
+            # Keep the existing file name (e.g., libgrpo.cp310-win_amd64.pyd)
             filename = os.path.basename(built_lib)
 
-            # Create platform-specific library name
-            if platform.system() == 'Darwin':
-                lib_name = 'libgrpo.dylib'
-            elif platform.system() == 'Linux':
-                lib_name = 'libgrpo.so'
-            else:
-                lib_name = 'libgrpo.dll'
-
-            # Copy the file to the package directory with the correct name
-            dest_path = os.path.join(dest_dir, lib_name)
+            dest_path = os.path.join(dest_dir, filename)
             shutil.copy2(built_lib, dest_path)
             print(f"Copied {built_lib} to {dest_path}")
 
@@ -87,22 +101,6 @@ class BDistWheel(_bdist_wheel):
             self.plat_name = 'win_amd64'  # Example for Windows
 
 
-# Define the extension module
-
-# grpo_module = Extension(
-#     'optimrl.c_src.libgrpo',
-#     sources=['optimrl/c_src/grpo.c'],
-#     include_dirs=[
-#         'optimrl/c_src',
-#         python_include_path
-#     ],
-#     library_dirs=[
-#         python_lib_path  # Include the Python library path dynamically
-#     ],
-#     libraries=['m'] if platform.system() != 'Windows' else [],
-#     extra_compile_args=['-O3', '-fPIC'] if platform.system() != 'Windows' else ['/O2'],
-#     extra_link_args=['-L' + python_lib_path] if platform.system() != 'Windows' else ['/EXPORT:PyInit_libgrpo']
-# )
 grpo_module = Extension(
     'optimrl.c_src.libgrpo',
     sources=['optimrl/c_src/grpo.c'],
