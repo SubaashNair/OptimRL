@@ -13,7 +13,7 @@ OptimRL is a **high-performance reinforcement learning library** that introduces
 ![Build Status](https://github.com/subaashnair/optimrl/actions/workflows/tests.yml/badge.svg)
 ![CI](https://github.com/subaashnair/optimrl/workflows/CI/badge.svg)
 ![Coverage](https://img.shields.io/codecov/c/github/subaashnair/optimrl)
-<!-- ![License](https://img.shields.io/github/license/subaashnair/optimrl) -->
+![License](https://img.shields.io/github/license/subaashnair/optimrl)
 
 ## 🌟 Features
 
