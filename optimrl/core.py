@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from typing import Dict, Tuple, Union, Optional
+from typing import Dict, Tuple, Union
 
 class GRPO:
     """

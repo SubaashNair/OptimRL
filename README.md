@@ -7,13 +7,12 @@ OptimRL is a **high-performance reinforcement learning library** that introduces
 
 ![PyPI Version](https://img.shields.io/pypi/v/optimrl)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
-![C](https://img.shields.io/badge/C-99-00599C?logo=c&logoColor=white)
 ![NumPy](https://img.shields.io/badge/Library-NumPy-013243?logo=numpy&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/Framework-PyTorch-EE4C2C?logo=pytorch&logoColor=white)
 ![Setuptools](https://img.shields.io/badge/Tool-Setuptools-3776AB?logo=python&logoColor=white)
 ![Build Status](https://github.com/subaashnair/optimrl/actions/workflows/tests.yml/badge.svg)
-<!-- ![CI](https://github.com/subaashnair/optimrl/workflows/CI/badge.svg) -->
-<!-- ![Coverage](https://img.shields.io/codecov/c/github/subaashnair/optimrl) -->
+![CI](https://github.com/subaashnair/optimrl/workflows/CI/badge.svg)
+![Coverage](https://img.shields.io/codecov/c/github/subaashnair/optimrl)
 <!-- ![License](https://img.shields.io/github/license/subaashnair/optimrl) -->
 
 ## 🌟 Features
@@ -33,8 +32,12 @@ OptimRL is a **high-performance reinforcement learning library** that introduces
    - **Smoothed updates** for policies.
    - Reliable and stable learning in any domain.
 
-4. **⚡ High-Performance C Implementation with Python Interface**  
-   At its core, OptimRL is written in **C** for maximum computational efficiency and wrapped in **Python** for ease of use. This gives you the **best of both worlds**: blazing-fast performance and developer-friendly APIs.
+4. **⚡ Vectorized NumPy Operations with PyTorch Tensor Integration**  
+   OptimRL leverages **NumPy's vectorized operations** and **PyTorch's tensor computations** with GPU acceleration for maximum performance. This hybrid implementation provides:
+   - **10-100x speedups** over pure Python through optimized array programming
+   - Seamless CPU/GPU execution via PyTorch backend
+   - Native integration with deep learning workflows
+   - Full automatic differentiation support
 
 ---
 
