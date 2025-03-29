@@ -294,3 +294,4 @@ def test_batch_consistency():
 
     # Depending on numerical variability, you might relax the tolerance.
     assert loss_diff < 1e-3, f"Loss difference {loss_diff} should be < 1e-3"
+
